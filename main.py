@@ -75,12 +75,12 @@ def apply_fisheye_effect(image):
 
     # Create undistortion maps
     map1, map2 = cv2.initUndistortRectifyMap(
-        cam, distCoeff, None, cam, 
+        cam, distCoeff, None, cam,
         (width, height), cv2.CV_32FC1)
 
     # Apply remapping to create the fish-eye effect
-    fisheye_img = cv2.remap(image, map1, map2, 
-                            interpolation=cv2.INTER_LINEAR, 
+    fisheye_img = cv2.remap(image, map1, map2,
+                            interpolation=cv2.INTER_LINEAR,
                             borderMode=cv2.BORDER_CONSTANT)
 
     return fisheye_img
@@ -127,6 +127,8 @@ def main():
         "image7.jpg",
     ]
 
+    image_files = list(map(lambda x: f"images/{x}", image_files))
+
     # Alternatively, you can use command line arguments
     import sys
     if len(sys.argv) > 1:
@@ -143,9 +145,9 @@ def main():
         display_result(image_files, panorama, fisheye_panorama)
 
         # Save the results
-        cv2.imwrite("panorama.jpg", cv2.cvtColor(panorama, cv2.COLOR_RGB2BGR))
-        cv2.imwrite("fisheye_panorama.jpg", cv2.cvtColor(fisheye_panorama, cv2.COLOR_RGB2BGR))
-        print("Panorama saved as 'panorama.jpg'")
+        cv2.imwrite("images/panorama.jpg", cv2.cvtColor(panorama, cv2.COLOR_RGB2BGR))
+        cv2.imwrite("images/fisheye_panorama.jpg", cv2.cvtColor(fisheye_panorama, cv2.COLOR_RGB2BGR))
+        print("Panorama saved as 'images/panorama.jpg'")
         print("Fish-eye panorama saved as 'fisheye_panorama.jpg'")
 
     except Exception as e:
